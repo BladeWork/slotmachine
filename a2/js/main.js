@@ -231,5 +231,17 @@ $("#spinButton").click(function () {
     else {
         alert("Please enter a valid bet amount");
     }
-    
 });
+
+
+//the canvas js
+var slotMachine = new Image();
+slotMachine.src = "img/slot-machine2.jpg";
+slotMachine.onload = drawMachineflies;
+function drawMachineflies() {
+    var theCanvas = document.getElementById('myCanvas');
+    var ctx = theCanvas.getContext("2d");
+    ctx.fillStyle = "lightGray";
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.drawImage(slotMachine, 0, 0, 340, 1450, 0, 0, 320, 460);
+}

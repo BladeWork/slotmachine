@@ -3,3 +3,10 @@
     padding: 0;
     margin: 5px;
 }
+
+#myCanvas {
+    width : 240px;
+    height: 320px;
+    border: dotted 3px black;
+    background-color: lightGray;
+}

@@ -58,6 +58,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\main.css" />
+    <Content Include="img\0.jpg" />
+    <Content Include="img\1.jpg" />
+    <Content Include="img\2.jpg" />
+    <Content Include="img\3.jpg" />
+    <Content Include="img\4.jpg" />
+    <Content Include="img\5.jpg" />
+    <Content Include="img\6.jpg" />
+    <Content Include="img\7.jpg" />
+    <Content Include="img\8.jpg" />
+    <Content Include="img\9.jpg" />
+    <Content Include="img\banana.jpg" />
+    <Content Include="img\bar.jpg" />
+    <Content Include="img\bell.jpg" />
+    <Content Include="img\cherry.jpg" />
+    <Content Include="img\grapes.gif" />
+    <Content Include="img\orange.jpg" />
+    <Content Include="img\reset.jpg" />
+    <Content Include="img\seven.jpg" />
+    <Content Include="img\slot-machine2.jpg" />
+    <Content Include="img\spin.jpg" />
+    <Content Include="img\textbox.jpg" />
     <Content Include="index.html" />
     <Content Include="js\jquery.js" />
     <Content Include="js\main.js" />
