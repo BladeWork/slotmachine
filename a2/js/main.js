@@ -222,6 +222,10 @@ $("#spinButton").click(function () {
     }
     else if (playerBet <= playerMoney) {
         spinResult = Reels();
+
+        //list the spinResult[] and find the opposite images
+
+
         fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
         $("div#result>p").text(fruits);
         determineWinnings();
@@ -234,14 +238,19 @@ $("#spinButton").click(function () {
 });
 
 
-//the canvas js
+//the canvas js for insert the slot machine
 var slotMachine = new Image();
 slotMachine.src = "img/slot-machine2.jpg";
 slotMachine.onload = drawMachineflies;
+var spinButton = new Image();
+spinButton.src = "img/slot-machine2.jpg";
+spinButton.onload = drawMachineflies;
 function drawMachineflies() {
     var theCanvas = document.getElementById('myCanvas');
     var ctx = theCanvas.getContext("2d");
     ctx.fillStyle = "lightGray";
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.drawImage(slotMachine, 0, 0, 340, 1450, 0, 0, 320, 460);
+    ctx.drawImage(spinButton, 0, 0, 0, 0, 0, 0, 280, 260);
+
 }
