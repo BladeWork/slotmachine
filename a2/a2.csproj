@@ -72,24 +72,37 @@
     <Content Include="img\Banana.jpg" />
     <Content Include="img\Bar.jpg" />
     <Content Include="img\Bell.jpg" />
+    <Content Include="img\blank.jpg" />
     <Content Include="img\Cherry.jpg" />
     <Content Include="img\Grapes.jpg" />
     <Content Include="img\Orange.jpg" />
     <Content Include="img\reset.jpg" />
     <Content Include="img\Seven.jpg" />
     <Content Include="img\slot-machine2.jpg" />
+    <Content Include="img\slot-machine3.jpg" />
+    <Content Include="img\slot-machine4.jpg" />
+    <Content Include="img\slot-machine5.png" />
     <Content Include="img\spin.jpg" />
     <Content Include="img\textbox.jpg" />
+    <Content Include="img\textbox.png" />
     <Content Include="index.html" />
-    <Content Include="js\easeljs-0.7.1.min.js" />
-    <Content Include="js\jquery-2.1.1.min.js" />
-    <Content Include="js\main.js" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\lib\easeljs-0.7.1.min.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />
+    <Content Include="Scripts\typings\easeljs\easeljs.d.ts" />
+    <Content Include="Scripts\typings\tweenjs\tweenjs.d.ts" />
+    <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

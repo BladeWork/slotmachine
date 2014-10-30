@@ -5,8 +5,10 @@
 }
 
 #myCanvas {
-    width : 240px;
-    height: 320px;
-    border: dotted 3px black;
-    background-color: lightGray;
+    width : 404px;
+    height: 490px;
+    /*
+        border: dotted 3px black;
+    */
+        background-color: lightGray;
 }

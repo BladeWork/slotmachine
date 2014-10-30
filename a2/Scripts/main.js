@@ -1,4 +1,4 @@
-﻿/// <reference path="jquery.js" />
+﻿//begin to set the stage/// <reference path="jquery.js" />
 var playerMoney = 1000;
 var winnings = 0;
 var jackpot = 5000;
@@ -17,6 +17,129 @@ var bars = 0;
 var bells = 0;
 var sevens = 0;
 var blanks = 0;
+
+var stage;
+function init() {
+    stage = new createjs.Stage(document.getElementById('myCanvas'));
+    createjs.Ticker.addEventListener("tick", handleTick);
+    createjs.Ticker.setFPS(60);
+    start();
+}
+
+function handleTick(e) {
+    stage.update();
+}
+
+function start() {
+    //GUI functions
+    drawSlotMachine();
+    drawSpinButton();
+    drawExitButton();
+    drawResetButton();
+}
+function drawSlotMachine() {
+    //GUI function for drawing slotmachine
+    var slotmachine = new createjs.Bitmap("img/slot-machine5.png");
+    slotmachine.x = -15;
+    slotmachine.y = -2;
+    slotmachine.scaleX = 0.72;
+    slotmachine.scaleY = 0.3;
+    stage.addChild(slotmachine);
+    stage.update();
+}
+
+function drawSpinButton() {
+    //GUI function for drawing Spin Button
+    //An mouse click listener
+    var spinButton = new createjs.Bitmap("img/spin.jpg");
+    spinButton.x = 214;
+    spinButton.y = 126;
+    spinButton.scaleX = 0.9;
+    spinButton.scaleY = 0.3;
+    spinButton.addEventListener("click", function (event) { spinAction(); } );
+    stage.addChild(spinButton);
+    stage.update();
+}
+function spinAction() {
+    if (playerMoney == 0) {
+        if (confirm("You ran out of Money! \nDo you want to play again?")) {
+            resetAll();
+            showPlayerStats();
+        }
+    }
+    else if (playerBet > playerMoney) {
+        alert("You don't have enough Money to place that bet.");
+    }
+    else if (playerBet < 0) {
+        alert("All bets must be a positive $ amount.");
+    }
+    else if (playerBet <= playerMoney) {
+        spinResult = Reels();
+
+        //list the spinResult[] and find the opposite images
+        for (var i = 0; i < 3; i++) {
+            drawFruits(spinResult[i],i);
+        }
+
+        determineWinnings();
+        turn++;
+        showPlayerStats();
+    }
+    else {
+        alert("Please enter a valid bet amount");
+    }
+}
+function drawFruits(fruitName,i) {
+    //GUI function for drawing fruits
+    var fruitIcon = new createjs.Bitmap("img/" + fruitName + ".jpg");
+    fruitIcon.x = 123 + 10 * i;
+    fruitIcon.y = 45 + 10 * i;
+    fruitIcon.scaleX = 0.88;
+    fruitIcon.scaleY = 0.3;
+    stage.addChild(fruitIcon);
+    stage.update();
+}
+
+
+function drawExitButton() {
+    //GUI function for drawing Exit Button
+    //An mouse click listener
+    var exitButton = new createjs.Bitmap("img/reset.jpg");
+    exitButton.x = 214;
+    exitButton.y = 26;
+    exitButton.scaleX = 0.88;
+    exitButton.scaleY = 0.3;
+    exitButton.addEventListener("click", function (event) { exitAction(); });
+    stage.addChild(exitButton);
+    stage.update();
+}
+
+function exitAction() {
+    //An action function for closing game
+    //For IE
+    window.opener = null;
+    window.open('', '_self');
+    window.close();
+    //For Other browers
+    var opened = window.open('about:blank', '_self');
+    opened.opener = null;
+    opened.close();
+}
+
+function drawResetButton() {
+    //GUI function for drawing Reset Button
+    //An mouse click listener
+    var resetButton = new createjs.Bitmap("img/reset.jpg");
+    resetButton.x = 42;
+    resetButton.y = 126;
+    resetButton.scaleX = 0.88;
+    resetButton.scaleY = 0.3;
+    resetButton.addEventListener("click", function (event) { init(); });
+    stage.addChild(resetButton);
+    stage.update();
+}
+
+//logic begin
 
 /* Utility function to show Player Stats */
 function showPlayerStats()
@@ -205,52 +328,6 @@ function determineWinnings()
 
 /* When the player clicks the spin button the game kicks off */
 $("#spinButton").click(function () {
-    playerBet = $("div#betEntry>input").val();
-
-    if (playerMoney == 0)
-    {
-        if (confirm("You ran out of Money! \nDo you want to play again?")) {
-            resetAll();
-            showPlayerStats();
-        }
-    }
-    else if (playerBet > playerMoney) {
-        alert("You don't have enough Money to place that bet.");
-    }
-    else if (playerBet < 0) {
-        alert("All bets must be a positive $ amount.");
-    }
-    else if (playerBet <= playerMoney) {
-        spinResult = Reels();
-
-        //list the spinResult[] and find the opposite images
-
-
-        fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-        $("div#result>p").text(fruits);
-        determineWinnings();
-        turn++;
-        showPlayerStats();
-    }
-    else {
-        alert("Please enter a valid bet amount");
-    }
+    
 });
-
-
-//the canvas js for insert the slot machine
-var slotMachine = new Image();
-slotMachine.src = "img/slot-machine2.jpg";
-slotMachine.onload = drawMachineflies;
-var spinButton = new Image();
-spinButton.src = "img/slot-machine2.jpg";
-spinButton.onload = drawMachineflies;
-function drawMachineflies() {
-    var theCanvas = document.getElementById('myCanvas');
-    var ctx = theCanvas.getContext("2d");
-    ctx.fillStyle = "lightGray";
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.drawImage(slotMachine, 0, 0, 340, 1450, 0, 0, 320, 460);
-    ctx.drawImage(spinButton, 0, 0, 0, 0, 0, 0, 280, 260);
-
-}
+//logic finish
