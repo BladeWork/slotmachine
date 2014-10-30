@@ -91,11 +91,11 @@ function spinAction() {
 }
 function drawFruits(fruitName,i) {
     //GUI function for drawing fruits
-    var fruitIcon = new createjs.Bitmap("img/" + fruitName + ".jpg");
-    fruitIcon.x = 123 + 10 * i;
-    fruitIcon.y = 45 + 10 * i;
-    fruitIcon.scaleX = 0.88;
-    fruitIcon.scaleY = 0.3;
+    var fruitIcon = new createjs.Bitmap("img/" + fruitName + ".png");
+    fruitIcon.x = 23 + 40 * i;
+    fruitIcon.y = 20 + 20 * i;
+    fruitIcon.scaleX = 1;
+    fruitIcon.scaleY = 1;
     stage.addChild(fruitIcon);
     stage.update();
 }
@@ -226,7 +226,7 @@ function Reels() {
         outCome[spin] = Math.floor((Math.random() * 65) + 1);
         switch (outCome[spin]) {
             case checkRange(outCome[spin], 1, 27):  // 41.5% probability
-                betLine[spin] = "blank";
+                betLine[spin] = "Blank";
                 blanks++;
                 break;
             case checkRange(outCome[spin], 28, 37): // 15.4% probability
