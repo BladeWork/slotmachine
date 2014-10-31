@@ -3,13 +3,9 @@
 var playerMoney = 1000;
 var winnings = 0;
 var jackpot = 5000;
-var turn = 0;
-var playerBet = 0;
-var winNumber = 0;
-var lossNumber = 0;
+var playerBet = 10;
 var spinResult;
 var fruits = "";
-var winRatio = 0;
 var grapes = 0;
 var bananas = 0;
 var oranges = 0;
@@ -20,6 +16,11 @@ var sevens = 0;
 var blanks = 0;
 
 var stage;
+
+var currentBetText = new createjs.Text(playerBet, "20px Arial", "#FFCCFF");
+var totalMoneyText = new createjs.Text(playerMoney, "20px Arial", "#FFCCFF");
+var jackpotText = new createjs.Text(jackpot, "20px Arial", "#FFCCFF");
+
 function init() {
     stage = new createjs.Stage(document.getElementById('myCanvas'));
     createjs.Ticker.addEventListener("tick", handleTick);
@@ -39,6 +40,9 @@ function start() {
     drawResetButton();
     drawDownBet();
     drawUpBet();
+    drawCurrentBet();
+    drawTotalMoney();
+    drawJackPotMoney();
     drawLabels();
 }
 /* GUI function for drawing Slot Machine
@@ -71,7 +75,7 @@ function spinAction() {
     if (playerMoney == 0) {
         if (confirm("You ran out of Money! \nDo you want to play again?")) {
             resetAll();
-            showPlayerStats();
+            init();
         }
     }
     else if (playerBet > playerMoney) {
@@ -89,12 +93,11 @@ function spinAction() {
         }
 
         determineWinnings();
-        turn++;
-        showPlayerStats();
     }
     else {
         alert("Please enter a valid bet amount");
     }
+
 }
 /* GUI function for drawing Fruits
    An mouse click listener */
@@ -164,7 +167,7 @@ function drawDownBet() {
     downBet.y = 423;
     downBet.scaleX = 0.17;
     downBet.scaleY = 0.17;
-    downBet.addEventListener("click", function (event) { alert("down"); });
+    downBet.addEventListener("click", function (event) { betChangeAction("down"); });
     stage.addChild(downBet);
     stage.update();
 }
@@ -178,8 +181,56 @@ function drawUpBet() {
     upBet.y = 423;
     upBet.scaleX = 0.29;
     upBet.scaleY = 0.29;
-    upBet.addEventListener("click", function (event) { alert("up"); });
+    upBet.addEventListener("click", function (event) { betChangeAction("up"); });
     stage.addChild(upBet);
+    stage.update();
+}
+/* Action function for bet change */
+function betChangeAction(state) {
+    switch (state) {
+        case "up":
+            playerBet += 10;
+            break;
+        case "down":
+            playerBet -= 10;
+            break;
+    }
+    if (playerBet > playerMoney) {
+        alert("You don't have enough Money to place that bet.");
+        playerBet -= 10;
+    }
+    else if (playerBet <= 0) {
+        alert("All bets must be a positive $ amount.");
+        playerBet = 10;
+    }
+
+    drawCurrentBet();
+}
+
+/* GUI function for drawing current bet */
+function drawCurrentBet() {
+    currentBetText.text = playerBet;
+    currentBetText.x = 315;
+    currentBetText.y = 350;
+    stage.addChild(currentBetText);
+    stage.update();
+}
+
+/* GUI function for drawing player's money */
+function drawTotalMoney() {
+    totalMoneyText.text = playerMoney;
+    totalMoneyText.x = 100;
+    totalMoneyText.y = 350;
+    stage.addChild(totalMoneyText);
+    stage.update();
+}
+
+/* GUI function for drawing jackpot */
+function drawJackPotMoney() {
+    jackpotText.text = jackpot;
+    jackpotText.x = 195;
+    jackpotText.y = 350;
+    stage.addChild(jackpotText);
     stage.update();
 }
 
@@ -213,17 +264,6 @@ function drawJackPot() {
     stage.update();
 }
 
-/* Utility function to show Player Stats */
-function showPlayerStats()
-{
-    winRatio = winNumber / turn;
-    $("#jackpot").text("Jackpot: " + jackpot);
-    $("#playerMoney").text("Player Money: " + playerMoney);
-    $("#playerTurn").text("Turn: " + turn);
-    $("#playerWins").text("Wins: " + winNumber);
-    $("#playerLosses").text("Losses: " + lossNumber);
-    $("#playerWinRatio").text("Win Ratio: " + (winRatio * 100).toFixed(2) + "%");
-}
 
 /* Utility function to reset all fruit tallies */
 function resetFruitTally() {
@@ -242,11 +282,7 @@ function resetAll() {
     playerMoney = 1000;
     winnings = 0;
     jackpot = 5000;
-    turn = 0;
-    playerBet = 0;
-    winNumber = 0;
-    lossNumber = 0;
-    winRatio = 0;
+    playerBet = 10;
 }
 
 
@@ -261,21 +297,6 @@ function checkJackPot() {
         jackpot = 1000;
         drawJackPot();
     }
-}
-
-/* Utility function to show a win message and increase player money */
-function showWinMessage() {
-    playerMoney += winnings;
-    $("div#winOrLose>p").text("You Won: $" + winnings);
-    resetFruitTally();
-    checkJackPot();
-}
-
-/* Utility function to show a loss message and reduce player money */
-function showLossMessage() {
-    playerMoney -= playerBet;
-    $("div#winOrLose>p").text("You Lost!");
-    resetFruitTally();
 }
 
 /* Utility function to check if a value falls within a range of bounds */
@@ -388,13 +409,11 @@ function determineWinnings()
         else {
             winnings = playerBet * 1;
         }
-        winNumber++;
-        showWinMessage();
+        playerMoney += winnings;
     }
     else
     {
-        lossNumber++;
-        showLossMessage();
+        playerMoney -= winnings;
     }
-    
+    resetFruitTally();
 }
