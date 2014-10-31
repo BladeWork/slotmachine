@@ -1,4 +1,5 @@
-﻿//begin to set the stage/// <reference path="jquery.js" />
+﻿/// <reference path="jquery.js" />
+//begin to set the stage
 var playerMoney = 1000;
 var winnings = 0;
 var jackpot = 5000;
@@ -30,36 +31,42 @@ function handleTick(e) {
     stage.update();
 }
 
+/* GUI functions */
 function start() {
-    //GUI functions
     drawSlotMachine();
     drawSpinButton();
     drawExitButton();
     drawResetButton();
+    drawDownBet();
+    drawUpBet();
+    drawLabels();
 }
+/* GUI function for drawing Slot Machine
+   An mouse click listener */
 function drawSlotMachine() {
-    //GUI function for drawing slotmachine
     var slotmachine = new createjs.Bitmap("img/slot-machine5.png");
     slotmachine.x = -15;
-    slotmachine.y = -2;
-    slotmachine.scaleX = 0.72;
-    slotmachine.scaleY = 0.3;
+    slotmachine.y = -8;
+    slotmachine.scaleX = 1;
+    slotmachine.scaleY = 1;
     stage.addChild(slotmachine);
     stage.update();
 }
 
+/* GUI function for drawing Spin button
+   An mouse click listener */
 function drawSpinButton() {
-    //GUI function for drawing Spin Button
-    //An mouse click listener
     var spinButton = new createjs.Bitmap("img/spin.jpg");
-    spinButton.x = 214;
-    spinButton.y = 126;
-    spinButton.scaleX = 0.9;
-    spinButton.scaleY = 0.3;
+    spinButton.x = 304;
+    spinButton.y = 419;
+    spinButton.scaleX = 1.22;
+    spinButton.scaleY = 1;
     spinButton.addEventListener("click", function (event) { spinAction(); } );
     stage.addChild(spinButton);
     stage.update();
 }
+
+/* When the player clicks the spin button the game kicks off */
 function spinAction() {
     if (playerMoney == 0) {
         if (confirm("You ran out of Money! \nDo you want to play again?")) {
@@ -89,33 +96,43 @@ function spinAction() {
         alert("Please enter a valid bet amount");
     }
 }
+/* GUI function for drawing Fruits
+   An mouse click listener */
 function drawFruits(fruitName,i) {
-    //GUI function for drawing fruits
     var fruitIcon = new createjs.Bitmap("img/" + fruitName + ".png");
-    fruitIcon.x = 23 + 40 * i;
-    fruitIcon.y = 20 + 20 * i;
+    switch (i) {
+        case 0:
+            fruitIcon.x = 55;
+            break;
+        case 1:
+            fruitIcon.x = 165;
+            break;
+        case 2:
+            fruitIcon.x = 283;
+            break;
+    }
+    fruitIcon.y = 236;
     fruitIcon.scaleX = 1;
     fruitIcon.scaleY = 1;
     stage.addChild(fruitIcon);
     stage.update();
 }
 
-
+/* GUI function for drawing Exit button
+   An mouse click listener */
 function drawExitButton() {
-    //GUI function for drawing Exit Button
-    //An mouse click listener
-    var exitButton = new createjs.Bitmap("img/reset.jpg");
-    exitButton.x = 214;
-    exitButton.y = 26;
-    exitButton.scaleX = 0.88;
-    exitButton.scaleY = 0.3;
+    var exitButton = new createjs.Bitmap("img/exit.png");
+    exitButton.x = 360;
+    exitButton.y = 80;
+    exitButton.scaleX = 0.6;
+    exitButton.scaleY = 0.6;
     exitButton.addEventListener("click", function (event) { exitAction(); });
     stage.addChild(exitButton);
     stage.update();
 }
 
+/* An action function for closing game */
 function exitAction() {
-    //An action function for closing game
     //For IE
     window.opener = null;
     window.open('', '_self');
@@ -126,20 +143,75 @@ function exitAction() {
     opened.close();
 }
 
+/* GUI function for drawing Reset button
+   An mouse click listener */
 function drawResetButton() {
-    //GUI function for drawing Reset Button
-    //An mouse click listener
     var resetButton = new createjs.Bitmap("img/reset.jpg");
-    resetButton.x = 42;
-    resetButton.y = 126;
-    resetButton.scaleX = 0.88;
-    resetButton.scaleY = 0.3;
-    resetButton.addEventListener("click", function (event) { init(); });
+    resetButton.x = 64;
+    resetButton.y = 419;
+    resetButton.scaleX = 1.23;
+    resetButton.scaleY = 1;
+    resetButton.addEventListener("click", function (event) { resetAll();init(); });
     stage.addChild(resetButton);
     stage.update();
 }
 
-//logic begin
+/* GUI function for drawing down bet
+   An mouse click listener */
+function drawDownBet() {
+    var downBet = new createjs.Bitmap("img/downbet.png");
+    downBet.x = 240;
+    downBet.y = 423;
+    downBet.scaleX = 0.17;
+    downBet.scaleY = 0.17;
+    downBet.addEventListener("click", function (event) { alert("down"); });
+    stage.addChild(downBet);
+    stage.update();
+}
+
+
+/* GUI function for drawing up bet
+   An mouse click listener */
+function drawUpBet() {
+    var upBet = new createjs.Bitmap("img/upbet.png");
+    upBet.x = 125;
+    upBet.y = 423;
+    upBet.scaleX = 0.29;
+    upBet.scaleY = 0.29;
+    upBet.addEventListener("click", function (event) { alert("up"); });
+    stage.addChild(upBet);
+    stage.update();
+}
+
+/* GUI function for drawing bet label & $10 label */
+function drawLabels() {
+    var betLabel = new createjs.Bitmap("img/bet.png");
+    var dollarLabel = new createjs.Bitmap("img/10dollar.png");
+    betLabel.x = 175;
+    betLabel.y = 415;
+    betLabel.scaleX = 0.25;
+    betLabel.scaleY = 0.25;
+
+    dollarLabel.x = 175;
+    dollarLabel.y = 438;
+    dollarLabel.scaleX = 0.25;
+    dollarLabel.scaleY = 0.25;
+    stage.addChild(betLabel);
+    stage.addChild(dollarLabel);
+    stage.update();
+}
+
+/* GUI function for drawing Jackpot win message */
+function drawJackPot() {
+    var jackPotLabel = new createjs.Bitmap("img/jackpot.png");
+    jackPotLabel.x = 150;
+    jackPotLabel.y = 140;
+    jackPotLabel.scaleX = 0.4;
+    jackPotLabel.scaleY = 0.4;
+
+    stage.addChild(jackPotLabel);
+    stage.update();
+}
 
 /* Utility function to show Player Stats */
 function showPlayerStats()
@@ -187,6 +259,7 @@ function checkJackPot() {
         alert("You Won the $" + jackpot + " Jackpot!!");
         playerMoney += jackpot;
         jackpot = 1000;
+        drawJackPot();
     }
 }
 
@@ -325,9 +398,3 @@ function determineWinnings()
     }
     
 }
-
-/* When the player clicks the spin button the game kicks off */
-$("#spinButton").click(function () {
-    
-});
-//logic finish

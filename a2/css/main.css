@@ -1,14 +1,3 @@
-﻿ul#playerStats {
-    list-style-type: none;
-    padding: 0;
-    margin: 5px;
-}
-
-#myCanvas {
-    width : 404px;
-    height: 490px;
-    /*
-        border: dotted 3px black;
-    */
-        background-color: lightGray;
+﻿/* CSS files */
+body {
 }

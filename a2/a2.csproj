@@ -59,12 +59,17 @@
   <ItemGroup>
     <Content Include="css\main.css" />
     <Content Include="css\normalize.css" />
+    <Content Include="img\10dollar.png" />
     <Content Include="img\Banana.png" />
     <Content Include="img\Bar.png" />
     <Content Include="img\Bell.png" />
+    <Content Include="img\bet.png" />
     <Content Include="img\Black.png" />
     <Content Include="img\Cherry.png" />
+    <Content Include="img\downbet.png" />
+    <Content Include="img\exit.png" />
     <Content Include="img\Grapes.png" />
+    <Content Include="img\jackpot.png" />
     <Content Include="img\Orange.png" />
     <Content Include="img\reset.jpg" />
     <Content Include="img\Seven.png" />
@@ -72,6 +77,7 @@
     <Content Include="img\spin.jpg" />
     <Content Include="img\textbox.jpg" />
     <Content Include="img\textbox.png" />
+    <Content Include="img\upbet.png" />
     <Content Include="index.html" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
